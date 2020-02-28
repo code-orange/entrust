@@ -1,13 +1,14 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use Zizaco\Entrust\Contracts\EntrustUserInterface;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 use Illuminate\Support\Facades\Config;
 use Mockery as m;
 
-class EntrustUserTest extends PHPUnit_Framework_TestCase
+class EntrustUserTest extends TestCase
 {
-    public function tearDown()
+    protected function tearDown(): void
     {
         m::close();
     }
@@ -817,6 +818,8 @@ class EntrustUserTest extends PHPUnit_Framework_TestCase
         $user->attachRole($roleObject);
         $user->attachRole($roleArray);
         $user->attachRole(3);
+
+        $this->assertTrueWithoutException();
     }
 
     public function testDetachRole()
@@ -860,6 +863,8 @@ class EntrustUserTest extends PHPUnit_Framework_TestCase
         $user->detachRole($roleObject);
         $user->detachRole($roleArray);
         $user->detachRole(3);
+
+        $this->assertTrueWithoutException();
     }
 
     public function testAttachRoles()
@@ -892,6 +897,8 @@ class EntrustUserTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
         $user->attachRoles([1, 2, 3]);
+
+        $this->assertTrueWithoutException();
     }
 
     public function testDetachRoles()
@@ -924,6 +931,8 @@ class EntrustUserTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
         $user->detachRoles([1, 2, 3]);
+
+        $this->assertTrueWithoutException();
     }
 
     protected function mockPermission($permName)
@@ -943,6 +952,11 @@ class EntrustUserTest extends PHPUnit_Framework_TestCase
         $roleMock->permissions = [];
 
         return $roleMock;
+    }
+
+    private function assertTrueWithoutException()
+    {
+        $this->assertTrue(true, 'Make it to the end without exception');
     }
 }
 
